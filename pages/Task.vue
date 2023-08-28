@@ -1,24 +1,30 @@
 <template>
   <div class="container mt-4">
-    <button class="btn btn-danger" @click="logout">Logout</button>
-    <h2>Task Management</h2>
-    <div class="table-responsive">
-      <table id="tasksTable" ref="tasksTable"class="table table-striped table-bordered">
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Title</th>
-            <th>Description</th>
-            <th>Due Date</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          <!-- DataTables content will be generated here -->
-        </tbody>
-      </table>
+    <TopNav />
+    <div class="d-flex">
+      <LeftNav/>
+      <div class="flex-grow-1">
+        <div class="table-responsive">
+        <button class="btn btn-primary mt-3 add-btn" @click="openModal('create')" >Add Task</button>
+        <table id="tasksTable" ref="tasksTable"class="table table-striped table-bordered">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Title</th>
+              <th>Description</th>
+              <th>Due Date</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- DataTables content will be generated here -->
+          </tbody>
+        </table>
+      </div>
+      </div>
+      <RightNav/>
     </div>
-    <button class="btn btn-primary mt-3" @click="openModal('create')" >Add Task</button>
+
     <!-- Task CRUD form -->
     <!-- Task CRUD Modal -->
     <div class="modal" id="taskModal" tabindex="-1" role="dialog">
@@ -61,8 +67,14 @@ import 'datatables.net';
 import 'datatables.net-bs4';
 import { get , post ,put , del } from '~/services/apiService';
 import 'bootstrap';
+import TopNav from '@/components/TopNav.vue';
+import LeftNav from '@/components/LeftNav.vue';
+import RightNav from '@/components/RightNav.vue';
 
 export default {
+  components: {
+    TopNav,
+  },
   middleware : "auth",
   data() {
     return {
@@ -87,7 +99,7 @@ export default {
   },
   computed: {
     apiBaseUrl() {
-      return process.env.API_BASE_URL;
+      return process.env.API_BASE_URL?process.env.API_BASE_URL : "http://localhost:8000/api";
     },
   },
   methods: {
@@ -188,4 +200,24 @@ export default {
 
 <style scoped>
 /* Add custom styling here */
+.container
+{
+  max-width : 100% !important;
+}
+
+.table-responsive {
+
+    max-width: 1200px;
+    min-height : 600px
+}
+
+.body-content
+{
+ 
+}
+
+.add-btn
+{
+  margin-bottom : 20px;
+}
 </style>
