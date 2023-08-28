@@ -51,6 +51,13 @@ export default {
   },
 
   router: {
+    extendRoutes(routes, resolve) {
+      routes.push({
+        name: 'index',
+        path: '/',
+        component: resolve(__dirname, 'pages/Login.vue'),
+      });
+    },
     routes: [
       {
         path: '/login',
