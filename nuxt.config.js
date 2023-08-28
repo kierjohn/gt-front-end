@@ -64,6 +64,11 @@ export default {
         path: '/register',
         component: '~/pages/Register.vue',
       },
+
+      {
+        path: '/',
+        component: '~/pages/Login.vue',
+      },
       // Other routes
     ],
   },
